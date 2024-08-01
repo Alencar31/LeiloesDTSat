@@ -13,7 +13,18 @@ public class ProdutosDAO {
     ArrayList<ProdutosDTO> listagem = new ArrayList<>();
     
     public void cadastrarProduto (ProdutosDTO produto){
-        //conn = new conectaDAO().connectDB();
+        conn = new conectaDAO().connectDB();
+        try {
+            prep = conn.prepareStatement("insert into produtos (nome, valor, status) values (?, ?, ?);");
+            prep.setString(1, produto.getNome());  
+            prep.setInt(2,produto.getValor());
+            prep.setString(3, "A Venda");
+            JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso");
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, "Erro ao salvar o Produto: " + erro.getMessage() );
+        } finally {
+            conectaDAO.closeConnection(conn,prep);
+        }
     }
     
     public ArrayList<ProdutosDTO> listarProdutos(){        
