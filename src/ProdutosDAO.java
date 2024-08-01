@@ -19,6 +19,9 @@ public class ProdutosDAO {
             prep.setString(1, produto.getNome());  
             prep.setInt(2,produto.getValor());
             prep.setString(3, "A Venda");
+            
+            prep.executeUpdate();
+            
             JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso");
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(null, "Erro ao salvar o Produto: " + erro.getMessage() );
