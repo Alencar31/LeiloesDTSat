@@ -9,31 +9,29 @@ import javax.swing.JOptionPane;
 
 public class conectaDAO {
     
-    public Connection connectDB(){
+    public Connection connectDB() throws ClassNotFoundException{
         Connection conn = null;
         
         try {
-        
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/leiloes?user=root&password=Tigresa15@");
-            
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/leiloes","root","Tigresa15@");            
         } catch (SQLException erro){
             JOptionPane.showMessageDialog(null, "Erro ConectaDAO" + erro.getMessage());
         }
         return conn;
-    }    
+    }     
     
-    public static void closeConnection(Connection con) {
+    public static void closeConnection(Connection conn) {
         try {
-            if(con != null) {
-                con.close();
+            if(conn != null) {
+                conn.close();
             }
         } catch (SQLException ex) {
             Logger.getLogger(conectaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    public static void closeConnection(Connection con, PreparedStatement stmt) {
-        closeConnection(con);
+    public static void closeConnection(Connection conn, PreparedStatement stmt) {
+        closeConnection(conn);
         try {
             if(stmt != null) {
                 stmt.close();
@@ -43,8 +41,8 @@ public class conectaDAO {
         }
     }
     
-    public static void closeConnection(Connection con, PreparedStatement stmt, ResultSet rs) {
-        closeConnection(con,stmt);
+    public static void closeConnection(Connection conn, PreparedStatement stmt, ResultSet rs) {
+        closeConnection(conn,stmt);
         try {
             if(rs != null) {
                 rs.close();
