@@ -128,7 +128,18 @@ public class listagemVIEW extends javax.swing.JFrame {
 
         ProdutosDAO produtosdao = new ProdutosDAO();
 
-        //produtosdao.venderProduto(Integer.parseInt(id));
+        if (produtosdao.verificaProduto(Integer.parseInt(id))) {
+            if (produtosdao.verificaStatus(Integer.parseInt(id))) {
+                JOptionPane.showMessageDialog(null, "Produto selecionado já vendido!");
+                id_produto_venda.setText("");
+            } else {        
+                produtosdao.venderProduto(Integer.parseInt(id));
+                id_produto_venda.setText("");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Produto informado não existe!");
+            id_produto_venda.setText("");
+        }
         listarProdutos();
     }//GEN-LAST:event_btnVenderActionPerformed
 
