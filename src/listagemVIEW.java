@@ -128,13 +128,24 @@ public class listagemVIEW extends javax.swing.JFrame {
 
         ProdutosDAO produtosdao = new ProdutosDAO();
 
-        //produtosdao.venderProduto(Integer.parseInt(id));
+        if (produtosdao.verificaProduto(Integer.parseInt(id))) {
+            if (produtosdao.verificaStatus(Integer.parseInt(id))) {
+                JOptionPane.showMessageDialog(null, "Produto selecionado já vendido!");
+                id_produto_venda.setText("");
+            } else {        
+                produtosdao.venderProduto(Integer.parseInt(id));
+                id_produto_venda.setText("");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Produto informado não existe!");
+            id_produto_venda.setText("");
+        }
         listarProdutos();
     }//GEN-LAST:event_btnVenderActionPerformed
 
     private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
-        //vendasVIEW vendas = new vendasVIEW();
-        //vendas.setVisible(true);
+        VendasVIEW vendas = new VendasVIEW();
+        vendas.setVisible(true);
     }//GEN-LAST:event_btnVendasActionPerformed
 
     public static void main(String args[]) {
@@ -179,5 +190,5 @@ public class listagemVIEW extends javax.swing.JFrame {
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(null, "Erro ao listar produtos: " + erro.getMessage());
         }    
-    }
+    }   
 }
